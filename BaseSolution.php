@@ -1,12 +1,17 @@
 <?php
 
 abstract class BaseSolution {
+    private function getDataFileName(): string
+    {
+        return explode('_', strtolower(static::class))[0];
+    }
+
     public function getInput(): string
     {
         $inputFileName = sprintf(
             '%s/inputs/%s.txt',
             __DIR__,
-            substr(strtolower(static::class), 3, -1),
+            substr($this->getDataFileName(), 3, -1),
         );
 
         if (!file_exists($inputFileName)) {
@@ -21,14 +26,14 @@ abstract class BaseSolution {
         $inputFileName = sprintf(
             '%s/examples/inputs/%s.txt',
             __DIR__,
-            substr(strtolower(static::class), 3),
+            substr($this->getDataFileName(), 3),
         );
 
         if (!file_exists($inputFileName)) {
             $inputFileName = sprintf(
                 '%s/examples/inputs/%s.txt',
                 __DIR__,
-                substr(strtolower(static::class), 3, -1),
+                substr($this->getDataFileName(), 3, -1),
             );
         }
 
@@ -44,7 +49,7 @@ abstract class BaseSolution {
         $answerFileName = sprintf(
             '%s/examples/answers/%s.txt',
             __DIR__,
-            substr(strtolower(static::class), 3),
+            substr($this->getDataFileName(), 3),
         );
 
         if (!file_exists($answerFileName)) {
