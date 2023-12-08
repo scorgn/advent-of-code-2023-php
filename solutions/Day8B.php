@@ -23,24 +23,19 @@ class Day8B extends BaseSolution
 
         $nodes = array_filter(array_keys($map), fn ($node) => str_ends_with($node, 'A'));
 
-        $nodesAndPassesUntilZ = [];
+        $passesUntilZ = [];
         foreach ($nodes as $node) {
             $directionsCopy = $directions;
             $i = 0;
             while (!str_ends_with($node, 'Z')) {
                 $direction = array_shift($directionsCopy);
                 $directionsCopy[] = $direction;
-                $newNode = $map[$node][$direction];
-                $node = $newNode;
+                $node = $map[$node][$direction];
                 $i++;
             }
-            $nodesAndPassesUntilZ[$node] = $i;
+            $passesUntilZ[$node] = $i;
         }
 
-        return array_reduce(
-            array_unique(array_values($nodesAndPassesUntilZ)),
-            fn ($a, $b) => gmp_lcm($a, $b),
-            1,
-        );
+        return array_reduce(array_unique($passesUntilZ), 'gmp_lcm', 1);
     }
 }
