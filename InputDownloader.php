@@ -15,7 +15,7 @@ class InputDownloader
             echo "\nError getting input\n";
             return;
         }
-        file_put_contents($file, $response);
+        file_put_contents($file, trim($response));
         echo "\nGot input from AoC\n";
     }
 }
